@@ -26,12 +26,15 @@ public class Day03_CheckBox {
 
     @Test
     public void checkBoxTest(){
+//Locationg checkbox 1 and checkbox2
         WebElement checkbox1 = driver.findElement(By.id("box1"));
         WebElement checkbox2 = driver.findElement(By.id("box2"));
 
-        if (!checkbox1.isSelected()) checkbox1.click();
+//        Click on the checkbox 1 if it is NOT already selected
+        if (!checkbox1.isSelected()) checkbox1.click(); //isSelected() returns true id checkbox is checked, returns false if checkbox is not checked
+//        Then click on checkbox2 if box is not selected
         if (!checkbox2.isSelected()) checkbox2.click();
-
+//        Then verify that checkbox1 is checked.
         Assert.assertTrue(checkbox1.isSelected());
         Assert.assertTrue(checkbox2.isSelected());
     }
