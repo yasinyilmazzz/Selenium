@@ -12,8 +12,9 @@ import java.time.Duration;
 
 public class Day04_xpath_css {
     WebDriver driver;
+
     @Before
-    public void setUp(){
+    public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));//15 seconds wait in case needed
@@ -22,9 +23,11 @@ public class Day04_xpath_css {
     }
 
     @Test
-    public void loginTest(){
+    public void loginTest() {
 //        locating username and typing username
-        driver.findElement(By.xpath("//input[@name='username']")).sendKeys("Admin");
+//        Absolute xpath is not recommended. We should never use absolute xpath to locate the elements,
+//          cause it so easily get broken when a new element is being inserted on the page
+        driver.findElement(By.xpath("/html/body/div/div/div/div/div/div[2]/div[2]/form/div/div/div[2]/input[@name='username']")).sendKeys("Admin");
 //        locating password and typing password
         driver.findElement(By.xpath("//input[@name='password']")).sendKeys("admin123");
 //        locating login button and click
@@ -32,7 +35,7 @@ public class Day04_xpath_css {
     }
 
     @Test
-    public void loginTestCss(){
+    public void loginTestCss() {
 //        location username and tyoing username
         driver.findElement(By.cssSelector("input[name='username']")).sendKeys("Admin");
 //        locating password and typing
@@ -41,16 +44,40 @@ public class Day04_xpath_css {
         driver.findElement(By.cssSelector("button[type='submit']")).click();
     }
 
-//    @After
-//    public void tearDown(){
-//        driver.quit();
-//    }
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
 
     /*
-     * How many locators are there?
-     * What are they?
-     * Which one do you prefer? Why?
-     * What is difference between absolute xpath and relative xpath?
-     * What is the difference between xpath and css selector?
+     * =====How many locators are there?
+     * 8 locator.
+     *
+     * =====What are they?
+     * id, name, className, linkText, tagName, partialLinkText, xpath, css
+     *
+     * =====Which one do you prefer? Why?
+     * ---Ahmet's answer :
+     * -First If there is an ID i use id, cause id is unique and faster
+     * -If there is no id then i use name if there is a unique name
+     * -I also sometime create dynamic xpath. Because some elements do not have stable attributes like id and name. And I can write xpath for any element.
+     * -I sometimes even use css selector instead of xpath. But i personally use xpath more than css.
+     *
+     * =====What is difference between absolute xpath and relative xpath?
+     * -Absolute xpath we start from the parent and go child elements one by one
+     * -Absolute xpath use /
+     * -Absolute xpath may easily be broken when a new element is added on the page
+     * -For this reason we should never use absolute xpath. In fact, my team don't let QA's use absolute xpath.
+     * --Relative xpath we don't start from parent and go child one by one. We go straight to the element
+     * --Relative xpath use //
+     * --Relative xpath is very reliable It doesn't easy brake, because absolute xpath doesn't dependent on other element
+     * --I use absolute xpath in my framework when to locate the elements
+     *
+     * =====What is the difference between xpath and css selector?
+     * -First xpath and css are similar. Both are helpful and there are different ways to create xpath or css
+     * -Syntax is a little different.
+     * --in xpath we use // and @, but in css we don't
+     * --css is a little faster than xpath(way less than 1 second). xpath does navigation in the html that takes a little bit time
+     * --there are more ways to write xpath. For example, dynamic xpath has contains, starts-with, ends-with functions
      * */
 }
