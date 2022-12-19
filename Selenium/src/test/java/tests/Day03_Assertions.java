@@ -40,5 +40,15 @@ public class Day03_Assertions {
 //        Assertion stops after assertion fails. Verification continues even after verification fails
 //        Junit assertions are hard assertion. If statement is verification
 //        NOTE: TestNG has soft assertion as well. We will learn it in TestNG
+                /*
+
+        What is the difference between Assertion and Verification?
+        Assertion stops the execution in failure. Verification continues even after failure.
+        JUnit assertions are hard assertions. If statement is verification.
+
+        Hard Assertion : If the execution stops in failure it is call Hard Assertion
+        Verification : If the execution continues in failure it is call Verification.
+
+         */
     }
 }
