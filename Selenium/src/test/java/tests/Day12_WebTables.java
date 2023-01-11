@@ -1,5 +1,7 @@
 package tests;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bouncycastle.est.LimitedSource;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -10,6 +12,7 @@ import java.sql.SQLOutput;
 import java.util.List;
 
 public class Day12_WebTables extends TestBase {
+    private static Logger logger= LogManager.getLogger(Day12_WebTables.class.getName());
 //    https://the-internet.herokuapp.com/tables
 //    Create a class: WebTables
 //    Task 1 : Print the entire table
@@ -23,9 +26,11 @@ public class Day12_WebTables extends TestBase {
 
     @Test
     public void printTable() {
+
         driver.get("https://the-internet.herokuapp.com/tables");
 
 //    Task 1 : Print the entire table
+        logger.info("Going to home page");
         String entireTable = driver.findElement(By.xpath("//table[@id='table1']")).getText();
         System.out.println(entireTable);
         List<WebElement> eachElement = driver.findElements(By.xpath("//table[@id='table1']//td"));
@@ -33,6 +38,7 @@ public class Day12_WebTables extends TestBase {
 
 //    Task 2 : Print All Rows
 
+        logger.info("Printing all rows by using loop");
         driver.get("https://the-internet.herokuapp.com/tables");
         List<WebElement> allRows = driver.findElements(By.xpath("//table[@id='table1']//tr"));
         int rowNum = 1;
@@ -46,6 +52,7 @@ public class Day12_WebTables extends TestBase {
         System.out.println("Last Row Data: " + allRows.get(allRows.size() - 1).getText());
 
 //    Task 4 : Print column 5 data in the table body
+        logger.info("print specific cell");
         List<WebElement> col5Data = driver.findElements(By.xpath("//table[@id='table1']//td[5]"));
         col5Data.stream().forEach(t-> System.out.println(t.getText()));
 
